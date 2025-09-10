@@ -134,4 +134,5 @@ dependencies:
     - urllib3==1.26.12
     - wasabi==0.10.1
     - wcwidth==0.2.5
+    - transformers==4.28.1
 prefix: mdm

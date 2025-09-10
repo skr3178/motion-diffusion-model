@@ -131,10 +131,14 @@ dmypy.json
 save/
 wandb/
 t2m/
-body_models/
+body_models/smpl/
 glove/
 slurm**/
 *.out
 *.err
 *.slurm
 .vscode/
+
+dataset/
+kit/
+assets/actionrecognition/
