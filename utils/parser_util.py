@@ -267,9 +267,9 @@ def add_evaluation_options(parser):
 
 
 def get_cond_mode(args):
-    if args.unconstrained:
+    if hasattr(args, 'unconstrained') and args.unconstrained:
         cond_mode = 'no_cond'
-    elif args.dataset in ['kit', 'humanml']:
+    elif args.dataset in ['kit', 'humanml', 'posescript']:
         cond_mode = 'text'
     else:
         cond_mode = 'action'

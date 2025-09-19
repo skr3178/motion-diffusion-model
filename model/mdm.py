@@ -39,6 +39,7 @@ class MDM(nn.Module):
         self.activation = activation
         self.clip_dim = clip_dim
         self.action_emb = kargs.get('action_emb', None)
+        # Set input_feats based on dataset
         self.input_feats = self.njoints * self.nfeats
 
         self.normalize_output = kargs.get('normalize_encoder_output', False)
@@ -48,6 +49,8 @@ class MDM(nn.Module):
         self.mask_frames = kargs.get('mask_frames', False)
         self.arch = arch
         self.gru_emb_dim = self.latent_dim if self.arch == 'gru' else 0
+
+        # Use standard input processing for all data types
         self.input_process = InputProcess(self.data_rep, self.input_feats+self.gru_emb_dim, self.latent_dim)
 
         self.emb_policy = kargs.get('emb_policy', 'add')
@@ -129,6 +132,7 @@ class MDM(nn.Module):
                 self.embed_action = EmbedAction(self.num_actions, self.latent_dim)
                 print('EMBED ACTION')
 
+        # Use standard output processing for all data types
         self.output_process = OutputProcess(self.data_rep, self.input_feats, self.latent_dim, self.njoints,
                                             self.nfeats)
 
@@ -188,7 +192,7 @@ class MDM(nn.Module):
 
     def forward(self, x, timesteps, y=None):
         """
-        x: [batch_size, njoints, nfeats, max_frames], denoted x_t in the paper
+        x: [batch_size, njoints, nfeats, max_frames]
         timesteps: [batch_size] (int)
         """
         bs, njoints, nfeats, nframes = x.shape
@@ -282,7 +286,6 @@ class MDM(nn.Module):
         output = self.output_process(output)  # [bs, njoints, nfeats, nframes]
         return output
 
-
     def _apply(self, fn):
         super()._apply(fn)
         self.rot2xyz.smpl_model._apply(fn)
@@ -344,7 +347,7 @@ class InputProcess(nn.Module):
         bs, njoints, nfeats, nframes = x.shape
         x = x.permute((3, 0, 1, 2)).reshape(nframes, bs, njoints*nfeats)
 
-        if self.data_rep in ['rot6d', 'xyz', 'hml_vec']:
+        if self.data_rep in ['rot6d', 'xyz', 'hml_vec', 'pose']:
             x = self.poseEmbedding(x)  # [seqlen, bs, d]
             return x
         elif self.data_rep == 'rot_vel':
@@ -371,7 +374,7 @@ class OutputProcess(nn.Module):
 
     def forward(self, output):
         nframes, bs, d = output.shape
-        if self.data_rep in ['rot6d', 'xyz', 'hml_vec']:
+        if self.data_rep in ['rot6d', 'xyz', 'hml_vec', 'pose']:
             output = self.poseFinal(output)  # [seqlen, bs, 150]
         elif self.data_rep == 'rot_vel':
             first_pose = output[[0]]  # [1, bs, d]

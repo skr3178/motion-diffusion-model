@@ -47,6 +47,10 @@ def get_model_args(args, data):
         data_rep = 'hml_vec'
         njoints = 251
         nfeats = 1
+    elif args.dataset == 'posescript':
+        data_rep = 'pose'  # New data representation for poses
+        njoints = 1  # Single "joint" containing all pose data
+        nfeats = 159  # SMPL pose (156) + translation (3)
 
     # Compatibility with old models
     if not hasattr(args, 'pred_len'):
@@ -58,7 +62,8 @@ def get_model_args(args, data):
     multi_encoder_type = args.__dict__.get('multi_encoder_type', 'multi')
     target_enc_layers = args.__dict__.get('target_enc_layers', 1)
 
-    return {'modeltype': '', 'njoints': njoints, 'nfeats': nfeats, 'num_actions': num_actions,
+    modeltype = 'pose' if args.dataset == 'posescript' else ''
+    return {'modeltype': modeltype, 'njoints': njoints, 'nfeats': nfeats, 'num_actions': num_actions,
             'translation': True, 'pose_rep': 'rot6d', 'glob': True, 'glob_rot': True,
             'latent_dim': args.latent_dim, 'ff_size': 1024, 'num_layers': args.layers, 'num_heads': 4,
             'dropout': 0.1, 'activation': "gelu", 'data_rep': data_rep, 'cond_mode': cond_mode,

@@ -4,7 +4,7 @@ from data_loaders.tensors import t2m_collate, t2m_prefix_collate
 
 def get_dataset_class(name):
     if name == "amass":
-        from .amass import AMASS
+        from data_loaders.amass import AMASS
         return AMASS
     elif name == "uestc":
         from .a2m.uestc import UESTC
@@ -18,6 +18,9 @@ def get_dataset_class(name):
     elif name == "kit":
         from data_loaders.humanml.data.dataset import KIT
         return KIT
+    elif name == "posescript":
+        from data_loaders.posescript import PoseScript
+        return PoseScript
     else:
         raise ValueError(f'Unsupported dataset name [{name}]')
 
@@ -29,6 +32,9 @@ def get_collate_fn(name, hml_mode='train', pred_len=0, batch_size=1):
         if pred_len > 0:
             return lambda x: t2m_prefix_collate(x, pred_len=pred_len)
         return lambda x: t2m_collate(x, batch_size)
+    elif name == "posescript":
+        from data_loaders.posescript.posescript import collate_fn as pose_collate
+        return pose_collate
     else:
         return all_collate
 
