@@ -142,3 +142,27 @@ slurm**/
 dataset/
 kit/
 assets/actionrecognition/
+# Ignore trained model checkpoints and large artifacts
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.safetensors
+
+# Common training artifact directories
+models/
+checkpoints/
+save/
+downloaded/
+runs/
+logs/
+
+# Compressed archives
+*.zip
+*.tar
+*.tar.gz
+*.7z
+
+# Ensure generated mp4s remain tracked
+!mp4_files/
+!mp4_files/**
