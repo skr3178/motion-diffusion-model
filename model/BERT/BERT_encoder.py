@@ -18,10 +18,12 @@ class BERT(nn.Module):
         logging.set_verbosity_error()
         # Tokenizer
         os.environ["TOKENIZERS_PARALLELISM"] = "false"
+        # Set offline mode
+        os.environ["TRANSFORMERS_OFFLINE"] = "1"
         # Tokenizer
-        self.tokenizer = AutoTokenizer.from_pretrained(modelpath)
+        self.tokenizer = AutoTokenizer.from_pretrained(modelpath, local_files_only=True)
         # Text model
-        self.text_model = AutoModel.from_pretrained(modelpath)
+        self.text_model = AutoModel.from_pretrained(modelpath, local_files_only=True)
 
 
     def forward(self, texts):

@@ -1,41 +1,11 @@
-# MDM: Human Motion Diffusion Model
 
+```
+source .venv/bin/activate
+```
 
-[![arXiv](https://img.shields.io/badge/arXiv-<2209.14916>-<COLOR>.svg)](https://arxiv.org/abs/2209.14916)
-<a href="https://replicate.com/arielreplicate/motion_diffusion_model"><img src="https://replicate.com/arielreplicate/motion_diffusion_model/badge"></a>
-
-The official PyTorch implementation of the paper [**"Human Motion Diffusion Model"**](https://arxiv.org/abs/2209.14916).
-
-Please visit our [**webpage**](https://guytevet.github.io/mdm-page/) for more details.
-
-![teaser](https://github.com/GuyTevet/mdm-page/raw/main/static/figures/github.gif)
-
-## MDM is now 40X faster 🤩🤩🤩 (~0.4 sec/sample)
-
-### How come?!?
-
-(1) We released the [50 diffusion steps model](https://drive.google.com/file/d/1cfadR1eZ116TIdXK7qDX1RugAerEiJXr/view?usp=sharing) (instead of 1000 steps) which runs 20X faster with comparable results.
-
-(2) [Calling CLIP just once and caching the result](https://github.com/GuyTevet/motion-diffusion-model/commit/94c173ff8bb11362e45dd9262751f07bf9293660) runs 2X faster for all models. Please pull.
-
-## MDM results on *HumanML3D* to cite in your paper (The original model used in the MDM paper)
-
-Performance improvement is due to an evaluation bug fix. BLUE marks fixed entries compared to the paper.
-![fixed_results](assets/fixed_results.png)
-
-- You can use [this](assets/fixed_results.tex) `.tex` file.
-- The fixed **KIT** results are available [here](https://github.com/GuyTevet/motion-diffusion-model/issues/211#issue-2369160290).
-
-
-## [NEW] DiP: Ultra-fast Text-to-motion
-
-### DiP is now part of the MDM code base!
-
-### [Here's how to use it](DiP.md)
-
-![DiP](https://github.com/GuyTevet/mdm-page/raw/main/static/figures/dip_vis_caption_small.gif)
-
-
+```
+deactivate
+```
 
 ## Bibtex
 
@@ -63,70 +33,13 @@ DiP and CLoSD:
 }
 ```
 
-## News
-
-📢 **12/Feb/25** - Added many things:
-  * [The DiP model](DiP.md)
-  * MDM with DistilBERT text encoder (Add `--text_encoder_type bert`)
-    * Developed by the legendary [Roy Kapon](https://scholar.google.com/citations?user=FAQOuSgAAAAJ&hl=en)!
-  * `--gen_during_training` feature.
-  * `--mask_frames` bug fix.
-  * `--use_ema` Weight averaging using Exponential Moving Average.
-  * Dataset caching for faster loading (by default).
-  * `eval_humanml` script can be logged with WanDB.
-
-📢 **29/Jan/25** - Added WandB support with `--train_platform_type WandBPlatform`.
-
-📢 **15/Apr/24** - Released a [50 diffusion steps model](https://drive.google.com/file/d/1cfadR1eZ116TIdXK7qDX1RugAerEiJXr/view?usp=sharing) (instead of 1000 steps) which runs 20X faster 🤩🤩🤩 with comparable results.
-
-📢 **12/Apr/24** - MDM inference is now 2X faster 🤩🤩🤩 This was made possible by [calling CLIP just once and caching the result](https://github.com/GuyTevet/motion-diffusion-model/commit/94c173ff8bb11362e45dd9262751f07bf9293660), and is backward compatible with older models.
-
-📢 **25/Jan/24** - Fixed bug in evalutation code (#182) - Please use the fixed results when citing MDM.<br>
-
-📢 **1/Jun/23** - Fixed generation issue (#104) - Please pull to improve generation results.
-
-📢 **23/Nov/22** - Fixed evaluation issue (#42) - Please pull and run `bash prepare/download_t2m_evaluators.sh` from the top of the repo to adapt.
-
-📢 **4/Nov/22** - Added sampling, training and evaluation of unconstrained tasks.
-  Note slight env changes adapting to the new code. If you already have an installed environment, run `bash prepare/download_unconstrained_assets.sh; conda install -y -c anaconda scikit-learn
-` to adapt.
-
-📢 **3/Nov/22** - Added in-between and upper-body editing.
-
-📢 **31/Oct/22** - Added sampling, training and evaluation of action-to-motion tasks.
-
-📢 **9/Oct/22** - Added training and evaluation scripts. 
-  Note slight env changes adapting to the new code. If you already have an installed environment, run `bash prepare/download_glove.sh; pip install clearml` to adapt.
-
-📢 **6/Oct/22** - First release - sampling and rendering using pre-trained models.
-
-
-## Checkout MDM Follow-ups (partial list)
-
-🐔 [LoRA-MDM](https://haimsaw.github.io/LoRA-MDM/) - Promptly adapt MDM for stylized text-to-motion.
-
-🦩 [AnyTop](https://anytop2025.github.io/Anytop-page/) - Character Animation Diffusion with Any Topology.
-
-🥋 [CLoSD](https://guytevet.github.io/CLoSD-page/) - Real-time MDM controls the character in a physical simulation.
-
-🐉 [SinMDM](https://sinmdm.github.io/SinMDM-page/) - Learns single motion motifs - even for non-humanoid characters.
-
-👯 [PriorMDM](https://priormdm.github.io/priorMDM-page/) - Uses MDM as a generative prior, enabling new generation tasks with few examples or even no data at all.
-
-💃 [MAS](https://guytevet.github.io/mas-page/) - Generating intricate 3D motions (including non-humanoid) using 2D diffusion models trained on in-the-wild videos.
-
-🐒 [MoMo](https://monkeyseedocg.github.io/) - Monkey See, Monkey Do: Harnessing Self-attention in Motion Diffusion
-for Zero-shot Motion Transfer
-
-🏃 [CAMDM](https://github.com/AIGAnimation/CAMDM) - Taming Diffusion Probabilistic Models for Character Control - a real-time version of MDM.
-
 
 ## Getting started
 
 This code was tested on `Ubuntu 18.04.5 LTS` and requires:
 
 * Python 3.7
-* conda3 or miniconda3
+* UV (recommended) or conda3/miniconda3
 * CUDA capable GPU (one is enough)
 
 ### 1. Setup environment
@@ -139,216 +52,92 @@ sudo apt install ffmpeg
 ```
 For windows use [this](https://www.geeksforgeeks.org/how-to-install-ffmpeg-on-windows/) instead.
 
-Setup conda env:
+#### Option A: Using UV (Recommended - Faster)
+
+```shell
+# Install UV if not already installed
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.cargo/env
+
+# Run the setup script
+bash setup_uv.sh
+
+# Activate the environment
+source .venv/bin/activate
+```
+
+#### Option B: Using Conda (Original)
+
 ```shell
 conda env create -f environment.yml
 conda activate mdm
 python -m spacy download en_core_web_sm
 pip install git+https://github.com/openai/CLIP.git
 ```
+#### Generate from test set prompts
 
-Download dependencies:
+#shell
+#python -m sample.generate --model_path ./save/humanml_trans_enc_512/model000200000.pt --num_samples 10 #--num_repetitions 3
 
-<details>
-  <summary><b>Text to Motion</b></summary>
-
-```bash
-bash prepare/download_smpl_files.sh
-bash prepare/download_glove.sh
-bash prepare/download_t2m_evaluators.sh
-```
-</details>
-
-<details>
-  <summary><b>Action to Motion</b></summary>
-
-```bash
-bash prepare/download_smpl_files.sh
-bash prepare/download_recognition_models.sh
-```
-</details>
-
-<details>
-  <summary><b>Unconstrained</b></summary>
-
-```bash
-bash prepare/download_smpl_files.sh
-bash prepare/download_recognition_models.sh
-bash prepare/download_recognition_unconstrained_models.sh
-```
-</details>
-
-### 2. Get data
-
-**Text to Motion** 
-
-[Download HumanML3D](https://drive.google.com/drive/folders/1OZrTlAGRvLjXhXwnRiOC-oxYry1vf-Uu?usp=drive_link)
-
-Or, alternatively, parse the data yourself according to the original instructions:
-
-
-<details>
-  <summary><b>Original Text to Motion instructions</b></summary>
-
-There are two paths to get the data:
-
-(a) **Go the easy way if** you just want to generate text-to-motion (excluding editing which does require motion capture data)
-
-(b) **Get full data** to train and evaluate the model.
-
-
-#### a. The easy way (text only)
-
-**HumanML3D** - Clone HumanML3D, then copy the data dir to our repository:
 
 ```shell
-cd ..
-git clone https://github.com/EricGuo5513/HumanML3D.git
-unzip ./HumanML3D/HumanML3D/texts.zip -d ./HumanML3D/HumanML3D/
-cp -r HumanML3D/HumanML3D motion-diffusion-model/dataset/HumanML3D
-cd motion-diffusion-model
+python -m sample.generate --model_path /home/skr/motion-diffusion-model/save/humanml_enc_512_50steps/model000750000.pt --num_samples 10 --num_repetitions 3
 ```
 
+```shell 
+python -m sample.generate --model_path /home/skr/motion-diffusion-model/save/humanml_enc_512_50steps/model000750000.pt --input_text ./assets/example_text_prompts.txt
 
-#### b. Full data (text + motion capture)
 
-**HumanML3D** - Follow the instructions in [HumanML3D](https://github.com/EricGuo5513/HumanML3D.git),
-then copy the result dataset to our repository:
+```shell 
+python -m sample.generate --model_path /home/skr/motion-diffusion-model/save/humanml_enc_512_50steps/model000750000.pt --input_text ./assets/example_text_prompts.txt
+```
+#### Generate from your text file
 
 ```shell
-cp -r ../HumanML3D/HumanML3D ./dataset/HumanML3D
+#python -m sample.generate --model_path ./save/humanml_trans_enc_512/model000200000.pt --input_text ./assets/#example_text_prompts.txt
 ```
-
-**KIT** - Download from [HumanML3D](https://github.com/EricGuo5513/HumanML3D.git) (no processing needed this time) and the place result in `./dataset/KIT-ML`
-</details>
-
-<details>
-  <summary><b>Action to Motion</b></summary>
-
-**UESTC, HumanAct12** 
-```bash
-bash prepare/download_a2m_datasets.sh
-```
-</details>
-
-<details>
-  <summary><b>Unconstrained</b></summary>
-
-**HumanAct12** 
-```bash
-bash prepare/download_unconstrained_datasets.sh
-```
-</details>
-
-### 3. Download the pretrained models
-
-Download the model(s) you wish to use, then unzip and place them in `./save/`. 
-
-<details>
-  <summary><b>Text to Motion</b></summary>
-
-**You need only the first one.** 
-
-**HumanML3D**
-
-[NEW!] [humanml_trans_dec_512_bert-50steps](https://drive.google.com/file/d/1z5IW5Qa9u9UdkckKylkcSXCwIYgLPhIC/view?usp=sharing) - Runs 20X faster with improved precision!
-
-[NEW!] [humanml-encoder-512-50steps](https://drive.google.com/file/d/1cfadR1eZ116TIdXK7qDX1RugAerEiJXr/view?usp=sharing) - Runs 20X faster with comparable performance!
-
-[humanml-encoder-512](https://drive.google.com/file/d/1PE0PK8e5a5j-7-Xhs5YET5U5pGh0c821/view?usp=sharing) (best model used in the paper)
-
-[humanml-decoder-512](https://drive.google.com/file/d/1q3soLadvVh7kJuJPd2cegMNY2xVuVudj/view?usp=sharing)
-
-[humanml-decoder-with-emb-512](https://drive.google.com/file/d/1GnsW0K3UjuOkNkAWmjrGIUmeDDZrmPE5/view?usp=sharing)
-
-**KIT**
-
-[kit-encoder-512](https://drive.google.com/file/d/1SHCRcE0es31vkJMLGf9dyLe7YsWj7pNL/view?usp=sharing)
-
-</details>
-
-<details>
-  <summary><b>Action to Motion</b></summary>
-
-**UESTC**
-
-[uestc](https://drive.google.com/file/d/1goB2DJK4B-fLu2QmqGWKAqWGMTAO6wQ6/view?usp=sharing)
-
-[uestc_no_fc](https://drive.google.com/file/d/1fpv3mR-qP9CYCsi9CrQhFqlLavcSQky6/view?usp=sharing)
-
-**HumanAct12**
-
-[humanact12](https://drive.google.com/file/d/154X8_Lgpec6Xj0glEGql7FVKqPYCdBFO/view?usp=sharing)
-
-[humanact12_no_fc](https://drive.google.com/file/d/1frKVMBYNiN5Mlq7zsnhDBzs9vGJvFeiQ/view?usp=sharing)
-
-</details>
-
-<details>
-  <summary><b>Unconstrained</b></summary>
-
-**HumanAct12**
-
-[humanact12_unconstrained](https://drive.google.com/file/d/1uG68m200pZK3pD-zTmPXu5XkgNpx_mEx/view?usp=share_link)
-
-</details>
-
-
-## Motion Synthesis
-<details>
-  <summary><b>Text to Motion</b></summary>
-
-### Generate from test set prompts
 
 ```shell
-python -m sample.generate --model_path ./save/humanml_trans_enc_512/model000200000.pt --num_samples 10 --num_repetitions 3
+python -m sample.generate --model_path /home/skr/motion-diffusion-model/save/humanml_enc_512_50steps/model000750000.pt --input_text ./assets/example_text_prompts.txt
 ```
 
-### Generate from your text file
-
-```shell
-python -m sample.generate --model_path ./save/humanml_trans_enc_512/model000200000.pt --input_text ./assets/example_text_prompts.txt
-```
-
-### Generate a single prompt
+#### Generate a single prompt
 
 ```shell
 python -m sample.generate --model_path ./save/humanml_trans_enc_512/model000200000.pt --text_prompt "the person walked forward and is picking up his toolbox."
 ```
-</details>
 
-<details>
-  <summary><b>Action to Motion</b></summary>
+```shell
+python -m sample.generate --model_path /home/skr/motion-diffusion-model/save/humanml_enc_512_50steps/model000750000.pt --text_prompt "the person walked forward and is picking up his toolbox."
+```
 
-### Generate from test set actions
+### Action to Motion
+
+#### Generate from test set actions
 
 ```shell
 python -m sample.generate --model_path ./save/humanact12/model000350000.pt --num_samples 10 --num_repetitions 3
 ```
 
-### Generate from your actions file
+#### Generate from your actions file
 
 ```shell
 python -m sample.generate --model_path ./save/humanact12/model000350000.pt --action_file ./assets/example_action_names_humanact12.txt
 ```
 
-### Generate a single action
+#### Generate a single action
 
 ```shell
 python -m sample.generate --model_path ./save/humanact12/model000350000.pt --action_name "drink"
 ```
-</details>
 
-<details>
-  <summary><b>Unconstrained</b></summary>
+### Unconstrained
 
 ```shell
 python -m sample.generate --model_path ./save/unconstrained/model000450000.pt --num_samples 10 --num_repetitions 3
 ```
 
 By abuse of notation, (num_samples * num_repetitions) samples are created, and are visually organized in a display of num_samples rows and num_repetitions columns.
-
-</details>
 
 **You may also define:**
 * `--device` id.
@@ -373,28 +162,6 @@ To create SMPL mesh per frame run:
 ```shell
 python -m visualize.render_mesh --input_path /path/to/mp4/stick/figure/file
 ```
-
-**This script outputs:**
-* `sample##_rep##_smpl_params.npy` - SMPL parameters (thetas, root translations, vertices and faces)
-* `sample##_rep##_obj` - Mesh per frame in `.obj` format.
-
-**Notes:**
-* The `.obj` can be integrated into Blender/Maya/3DS-MAX and rendered using them.
-* This script is running [SMPLify](https://smplify.is.tue.mpg.de/) and needs GPU as well (can be specified with the `--device` flag).
-* **Important** - Do not change the original `.mp4` path before running the script.
-
-**Notes for 3d makers:**
-* You have two ways to animate the sequence:
-  1. Use the [SMPL add-on](https://smpl.is.tue.mpg.de/index.html) and the theta parameters saved to `sample##_rep##_smpl_params.npy` (we always use beta=0 and the gender-neutral model).
-  1. A more straightforward way is using the mesh data itself. All meshes have the same topology (SMPL), so you just need to keyframe vertex locations. 
-     Since the OBJs are not preserving vertices order, we also save this data to the `sample##_rep##_smpl_params.npy` file for your convenience.
-
-## Motion Editing
-
-* This feature is available for text-to-motion datasets (HumanML3D and KIT).
-* In order to use it, you need to acquire the full data (not just the texts).
-* We support the two modes presented in the paper: `in_between` and `upper_body`.
-
 ### Unconditioned editing
 
 ```shell
@@ -428,8 +195,7 @@ The output will look like this (blue joints are from the input motion; orange we
 
 ## Train your own MDM
 
-<details>
-  <summary><b>Text to Motion</b></summary>
+### Text to Motion
 
 **HumanML3D**
 
@@ -456,38 +222,21 @@ python -m train.train_mdm --save_dir save/my_humanml_trans_dec_bert_512 --datase
 ```shell
 python -m train.train_mdm --save_dir save/my_kit_trans_enc_512 --dataset kit
 ```
-</details>
-<details>
-  <summary><b>Action to Motion</b></summary>
+### Action to Motion
 
 ```shell
 python -m train.train_mdm --save_dir save/my_name --dataset {humanact12,uestc} --cond_mask_prob 0 --lambda_rcxyz 1 --lambda_vel 1 --lambda_fc 1
 ```
-</details>
 
-<details>
-  <summary><b>Unconstrained</b></summary>
+### Unconstrained
 
 ```shell
 python -m train.train_mdm --save_dir save/my_name --dataset humanact12 --cond_mask_prob 0 --lambda_rcxyz 1 --lambda_vel 1 --lambda_fc 1  --unconstrained
 ```
-</details>
-
-
-* **Recommended:** Add `--eval_during_training` and `--gen_during_training` to evaluate and generate motions for each saved checkpoint. 
-  This will slow down training but will give you better monitoring.
-* **Recommended:** Add `--use_ema` for Exponential Moving Average, and `--mask_frames` to fix a masking bug. Both improve performance.
-* Use `--diffusion_steps 50` to train the faster model with less diffusion steps.
-* Use `--device` to define GPU id.
-* Use `--arch` to choose one of the architectures reported in the paper `{trans_enc, trans_dec, gru}` (`trans_enc` is default).
-* Use `--text_encoder_type` to choose the text encoder `{clip, bert}` (`clip` is default).
-* Add `--train_platform_type {WandBPlatform, TensorboardPlatform}` to track results with either [WandB](https://wandb.ai/site/) or [Tensorboard](https://www.tensorflow.org/tensorboard).
-
 
 ## Evaluate
 
-<details>
-  <summary><b>Text to Motion</b></summary>
+### Text to Motion
 
 <!-- * Takes about 20 hours (on a single GPU) -->
 * The output of this script for the pre-trained models (as was reported in the paper) is provided in the checkpoints zip file.
@@ -501,10 +250,8 @@ python -m eval.eval_humanml --model_path ./save/humanml_trans_enc_512/model00047
 ```shell
 python -m eval.eval_humanml --model_path ./save/kit_trans_enc_512/model000400000.pt
 ```
-</details>
 
-<details>
-  <summary><b>Action to Motion</b></summary>
+### Action to Motion
 
 * Takes about 7 hours for UESTC and 2 hours for HumanAct12 (on a single GPU)
 * The output of this script for the pre-trained models (as was reported in the paper) is provided in the checkpoints zip file.
@@ -514,11 +261,8 @@ python -m eval.eval_humanact12_uestc --model <path-to-model-ckpt> --eval_mode fu
 ```
 where `path-to-model-ckpt` can be a path to any of the pretrained action-to-motion models listed above, or to a checkpoint trained by the user.
 
-</details>
 
-
-<details>
-  <summary><b>Unconstrained</b></summary>
+### Unconstrained
 
 * Takes about 3 hours (on a single GPU)
 
@@ -528,16 +272,90 @@ python -m eval.eval_humanact12_uestc --model ./save/unconstrained/model000450000
 
 Precision and recall are not computed to save computing time. If you wish to compute them, edit the file eval/a2m/gru_eval.py and change the string `fast=True` to `fast=False`.
 
-</details>
+## Generated Motion Samples (GIF Files)
 
-## Acknowledgments
+This repository includes high-quality GIF samples generated using different MDM model variants. All samples are converted from MP4 to GIF format while maintaining original resolution (900px width) and frame rate (20 fps) for optimal quality.
 
-This code is standing on the shoulders of giants. We want to thank the following contributors
-that our code is based on:
+### Sample GIF Files Location
+📁 **Directory:** `/home/skr/motion-diffusion-model/gif_files/`
 
-[guided-diffusion](https://github.com/openai/guided-diffusion), [MotionCLIP](https://github.com/GuyTevet/MotionCLIP), [text-to-motion](https://github.com/EricGuo5513/text-to-motion), [actor](https://github.com/Mathux/ACTOR), [joints2smpl](https://github.com/wangsen1312/joints2smpl), [MoDi](https://github.com/sigal-raab/MoDi).
+### Model Variants and Generated Samples
 
-## License
-This code is distributed under an [MIT LICENSE](LICENSE).
+#### 1. BERT Text Encoder Model
+**Model:** `humanml_trans_dec_512_bert` (50 diffusion steps)  
+**Location:** `gif_files/bert/`
 
-Note that our code depends on other libraries, including CLIP, SMPL, SMPL-X, PyTorch3D, and uses datasets that each have their own respective licenses that must also be followed.
+**Samples 0-2:**
+![BERT Samples 0-2](gif_files/bert/samples_00_to_02.gif)
+
+**Samples 3-5:**
+![BERT Samples 3-5](gif_files/bert/samples_03_to_05.gif)
+
+**Sample 6:**
+![BERT Sample 6](gif_files/bert/samples_06_to_06.gif)
+
+#### 2. HumanML Encoder Model (50 Steps)
+**Model:** `humanml_enc_512_50steps` (50 diffusion steps, 20X faster)  
+**Location:** `gif_files/humanml_enc_512_50steps/`
+
+**Output 1:**
+
+Samples 0-2:
+![HumanML Encoder Output 1 Samples 0-2](gif_files/humanml_enc_512_50steps/output_1/samples_00_to_02.gif)
+
+Samples 3-5:
+![HumanML Encoder Output 1 Samples 3-5](gif_files/humanml_enc_512_50steps/output_1/samples_03_to_05.gif)
+
+Sample 6:
+![HumanML Encoder Output 1 Sample 6](gif_files/humanml_enc_512_50steps/output_1/samples_06_to_06.gif)
+
+**Output 2:**
+
+Samples 0-2:
+![HumanML Encoder Output 2 Samples 0-2](gif_files/humanml_enc_512_50steps/output_2/samples_00_to_02.gif)
+
+Samples 3-5:
+![HumanML Encoder Output 2 Samples 3-5](gif_files/humanml_enc_512_50steps/output_2/samples_03_to_05.gif)
+
+Samples 6-7:
+![HumanML Encoder Output 2 Samples 6-7](gif_files/humanml_enc_512_50steps/output_2/samples_06_to_07.gif)
+
+#### 3. HumanML Transformer Encoder Model
+**Model:** `humanml_trans_enc_512` (original paper model)  
+**Location:** `gif_files/humanml_trans_enc_512/`
+
+**Output 1:**
+
+Samples 0-2:
+![HumanML Transformer Output 1 Samples 0-2](gif_files/humanml_trans_enc_512/output_1/samples_00_to_02.gif)
+
+Samples 3-5:
+![HumanML Transformer Output 1 Samples 3-5](gif_files/humanml_trans_enc_512/output_1/samples_03_to_05.gif)
+
+Samples 6-7:
+![HumanML Transformer Output 1 Samples 6-7](gif_files/humanml_trans_enc_512/output_1/samples_06_to_07.gif)
+
+**Output 2:**
+
+Samples 0-2:
+![HumanML Transformer Output 2 Samples 0-2](gif_files/humanml_trans_enc_512/output_2/samples_00_to_02.gif)
+
+Samples 3-5:
+![HumanML Transformer Output 2 Samples 3-5](gif_files/humanml_trans_enc_512/output_2/samples_03_to_05.gif)
+
+Sample 6:
+![HumanML Transformer Output 2 Sample 6](gif_files/humanml_trans_enc_512/output_2/samples_06_to_06.gif)
+
+### Technical Details
+- **Total Samples:** 15 GIF files
+- **Resolution:** 900px width (maintains aspect ratio)
+- **Frame Rate:** 20 fps (original MP4 frame rate)
+- **Quality:** High-quality conversion with no compression artifacts
+- **Format:** GIF with infinite loop for web compatibility
+
+### Usage
+These GIF files can be used for:
+- Visualizing model performance across different architectures
+- Comparing motion quality between model variants
+- Documentation and presentation purposes
+- Web embedding and sharing
